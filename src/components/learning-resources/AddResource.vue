@@ -1,5 +1,5 @@
 <template>
-  <base-dialog title="Invalid Input" v-if="inputIsValid">
+  <base-dialog @close="confirmError" title="Invalid Input" v-if="inputIsValid">
     <template #body>
       <p>unfortunately, at least one input vlaue is invalid.</p>
       <p>Go ahead and fill them in.</p>
@@ -58,15 +58,15 @@ export default {
         id: new Date().toISOString(),
       };
 
-      let shouldBeDisabled;
-      Object.keys(data).forEach(key => {
-        if (data[key].trim() === '') {
-          shouldBeDisabled = true;
-          return undefined;
-        }
-      });
+      if (
+        data.title.trim() === '' ||
+        data.description.trim() === '' ||
+        data.link.trim() === ''
+      ) {
+        this.inputIsValid = true;
+        return;
+      }
 
-      this.inputIsValid = shouldBeDisabled;
       this.addResource(data);
     },
   },

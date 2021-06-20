@@ -11,7 +11,7 @@
       >Add Resource</base-button
     >
   </base-card>
-  <keep-alive>
+  <keep-alive include="AddResource">
     <component :is="selectedTab"></component>
   </keep-alive>
 </template>
